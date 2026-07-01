@@ -61,14 +61,15 @@ ln -s /ruta/a/tu/repositorio site
 ```
 
 ## Instalar Docker y Docker Compose
+
+1. Instala Docker
+
 ```bash
 sudo yum update -y
 sudo yum install -y docker
 ```
 
-```bash
-sudo amazon-linux-extras install docker
-```
+2. Habilita Docker Compose y permisos 
 
 ```bash
 sudo systemctl enable --now docker
@@ -77,6 +78,14 @@ sudo mkdir -p /usr/libexec/docker/cli-plugins
 sudo curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-$(uname -m) -o /usr/libexec/docker/cli-plugins/docker-compose
 sudo chmod +x /usr/libexec/docker/cli-plugins/docker-compose
 ```
+
+3. Comprueba Docker y Docker Compose
+```bash
+docker -h 
+docker compose -h
+```
+
+
 
 ## Despliegue con Docker Compose
 
