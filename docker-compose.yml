@@ -3,5 +3,5 @@ services:
     build: .
     container_name: sitio-estatico
     ports:
-      - "8080:80"
+      - "80:80"
     restart: unless-stopped

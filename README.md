@@ -60,29 +60,63 @@ ln -s /ruta/a/tu/repositorio site
 ./scripts/deploy.sh
 ```
 
-## Instalar Docker y Docker Compose
+## Instalar Docker y Docker Compose en Amazon Linux 2023
 
-1. Instala Docker
+> ⚠️ Estos pasos usan `dnf`, el gestor de paquetes de **Amazon Linux 2023**. Si usas Amazon Linux 2, reemplaza `dnf` por `yum`.
+
+### 1. Instala Docker
 
 ```bash
-sudo yum update -y
-sudo yum install -y docker
+sudo dnf update -y
+sudo dnf install -y docker
 ```
 
-2. Habilita Docker Compose y permisos 
+### 2. Habilita Docker e inicia el servicio
 
 ```bash
 sudo systemctl enable --now docker
-sudo usermod -a -G docker ec2-user
+```
+
+### 3. Añade tu usuario al grupo docker (para no usar sudo)
+
+```bash
+sudo usermod -aG docker ec2-user
+newgrp docker
+```
+
+### 4. Instala el plugin Docker Compose
+
+```bash
 sudo mkdir -p /usr/libexec/docker/cli-plugins
-sudo curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-$(uname -m) -o /usr/libexec/docker/cli-plugins/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.36.2/docker-compose-linux-$(uname -m)" \
+  -o /usr/libexec/docker/cli-plugins/docker-compose
 sudo chmod +x /usr/libexec/docker/cli-plugins/docker-compose
 ```
 
-3. Comprueba Docker y Docker Compose
+### 5. Instala el plugin Docker Buildx
+
+> ⚠️ **Importante:** El comando `docker compose up` requiere Buildx >= 0.17.0. La instalación por defecto de Docker en Amazon Linux 2023 puede traer una versión antigua o incorrecta. Instálalo manualmente con una versión fija para evitar errores de formato:
+
 ```bash
-docker -h 
-docker compose -h
+mkdir -p ~/.docker/cli-plugins
+curl -L "https://github.com/docker/buildx/releases/download/v0.23.0/buildx-v0.23.0.linux-$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')" \
+  -o ~/.docker/cli-plugins/docker-buildx
+chmod +x ~/.docker/cli-plugins/docker-buildx
+```
+
+### 6. Verifica que todo esté instalado correctamente
+
+```bash
+docker --version
+docker compose version
+docker buildx version
+```
+
+La salida esperada debe mostrar versiones similares a:
+```
+Docker version 25.x.x, build ...
+Docker Compose version v2.x.x
+github.com/docker/buildx v0.23.0 ...
 ```
 
 
