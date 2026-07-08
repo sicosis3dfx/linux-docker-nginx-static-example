@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Veterinaria Central</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="nav-container"></div>
+
+    <main class="container my-5">
+        <div class="row g-5">
+            <div class="col-md-5 animar">
+                <h2 class="fw-bold mb-4">Ponte en contacto</h2>
+                <p class="text-secondary">Estamos en Renca para atender a tus mascotas con el mejor cuidado profesional.</p>
+                <div class="mt-4">
+                    <p><strong>📍 Dirección:</strong> Av. Condell 1234, Renca, Santiago.</p>
+                    <p><strong>📞 Teléfono:</strong> +56 9 1234 5678</p>
+                    <p><strong>✉️ Email:</strong> contacto@huellitasfelices.cl</p>
+                </div>
+            </div>
+
+            <div class="col-md-7 animar">
+                <div class="tarjeta">
+                    <h3 class="h5 mb-4">Envíanos un mensaje</h3>
+                    <form id="formContacto">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nombre Completo</label>
+                            <input type="text" id="contactoNombre" class="form-control" 
+                                   placeholder="Ingresa tu nombre completo" maxlength="120" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Correo Electrónico</label>
+                            <input type="email" class="form-control" 
+                                   placeholder="nombre@correo.com" maxlength="120" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Asunto</label>
+                            <input type="text" id="contactoAsunto" class="form-control" 
+                                   placeholder="¿De qué trata tu consulta?" maxlength="120" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Mensaje</label>
+                            <textarea class="form-control" rows="4" placeholder="Escribe aquí tu mensaje..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 fw-bold py-2">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="../js/app.js"></script>
+
+    <script>
+        document.getElementById('formContacto').addEventListener('submit', (e) => {
+            const nombre = document.getElementById('contactoNombre').value.trim();
+            const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+
+            if (!soloLetras.test(nombre)) {
+                e.preventDefault();
+                alert("El nombre solo puede contener letras. Por favor, corrígelo.");
+            } else {
+                alert("¡Mensaje enviado con éxito! Nos contactaremos contigo pronto.");
+            }
+        });
+    </script>
+</body>
+</html>

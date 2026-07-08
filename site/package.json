@@ -1,0 +1,12 @@
+{
+  "name": "proyecto-veterinaria",
+  "version": "1.0.0",
+  "description": "Sistema de gestión veterinaria INACAP",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve ."
+  },
+  "dependencies": {
+    "bootstrap-icons": "^1.11.0"
+  }
+}
